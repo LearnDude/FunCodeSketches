@@ -22,15 +22,15 @@ class MonteCarloSimulator {
         }
     };
 
-    void attachInputs(SimulatorFunction* addInput) { inputs.emplace_back(addInput); };
+    void attachInputs(const InputFunction& addInput) { inputs.emplace_back(addInput); };
 
-    void attachInputs(std::vector<SimulatorFunction*> addInputs) {
+    void attachInputs(std::vector<InputFunction> addInputs) {
         for(auto inputF: addInputs) attachInputs(inputF);
     };
 
-    void attachOutputs(const OutputFunction* addOutput) { outputs.emplace_back(addOutput); };
+    void attachOutputs(const OutputFunction& addOutput) { outputs.emplace_back(addOutput); };
 
-    void attachOutputs(const std::vector<const OutputFunction*>& addOutputs) {
+    void attachOutputs(const std::vector<const OutputFunction>& addOutputs) {
         for(auto outputF: addOutputs) attachOutputs(outputF);
     };
 
@@ -38,7 +38,7 @@ class MonteCarloSimulator {
     std::vector<const std::vector<double>&> data;
 
    private:
-    std::vector<SimulatorFunction*> inputs;
+    std::vector<DiscreteDist*> inputs;
     std::vector<OutputFunction*> outputs;
 
     std::vector<const std::vector<double>&> assembleInputs(OutputFunction* output) {

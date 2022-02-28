@@ -7,7 +7,7 @@
 #include "simulatorFunction.hpp"
 #include "types.hpp"
 
-class InputFunction : SimulatorFunction {
+class InputFunction : public SimulatorFunction {
    public:
     InputFunction(std::string _name, randomDist_t _distributionType, d2dFunction_t f)
         : uniform_0_1_dist{0.0, 1.0},
@@ -16,12 +16,6 @@ class InputFunction : SimulatorFunction {
           distributionType{_distributionType},
           SimulatorFunction::SimulatorFunction(_name,
                                                [&f](const std::vector<double>& randnum) { return f(randnum[0]); }){};
-
-    using SimulatorFunction::data;
-    using SimulatorFunction::name;
-    using SimulatorFunction::samples;
-    using SimulatorFunction::operator[];
-    using SimulatorFunction::getData;
 
     void compute(int _samples) {
         samples = _samples;
@@ -59,7 +53,7 @@ class InputFunction : SimulatorFunction {
     };
 };
 
-class DiscreteDist : InputFunction {
+class DiscreteDist : public InputFunction {
    public:
     DiscreteDist(std::string _name, std::vector<double> _datapoints, std::vector<double> _cumulativeProbs)
         : datapoints{_datapoints},
@@ -80,7 +74,7 @@ class DiscreteDist : InputFunction {
     };
 };
 
-class NormalDist : InputFunction {
+class NormalDist : public InputFunction {
    public:
     NormalDist(std::string _name, double _mean, double _stddev)
         : mean{_mean},

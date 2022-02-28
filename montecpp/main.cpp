@@ -11,17 +11,10 @@ int main() {
     OutputFunction noisyApples("noisyApples", {"apples", "noise"}, f);
 
     MonteCarloSimulator mySim;
-    mySim.attachInputs({&apples, &noise});
-    mySim.attachInputs(&apples);
-    mySim.attachOutputs(&noisyApples);
+    std::vector<InputFunction> theInputs{apples, noise};
+    mySim.attachInputs(theInputs);
+    mySim.attachInputs({apples, noise});
+    mySim.attachInputs(apples);
+    mySim.attachOutputs(noisyApples);
     mySim.compute(5);
-
-    std::vector<SimulatorFunction*> john;
-
-    SimulatorFunction a("a", [](const std::vector<double>& x) { return 2.0; });
-    InputFunction b("b", randomDist_t::uniform0_1, [](double c) { return c; });
-
-    john.emplace_back(&a);
-    john.emplace_back(&b);
-    john.emplace_back(&apples);
 }
