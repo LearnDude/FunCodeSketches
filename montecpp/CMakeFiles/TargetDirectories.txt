@@ -1,0 +1,3 @@
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/montecpp/CMakeFiles/rebuild_cache.dir
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/montecpp/CMakeFiles/montecpp.dir
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/montecpp/CMakeFiles/edit_cache.dir

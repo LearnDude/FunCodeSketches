@@ -1,0 +1,26 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/collatz/collatz.cpp
+collatz.hpp
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/collatz/collatz.hpp
+chrono
+-
+fstream
+-
+iostream
+-
+map
+-
+sstream
+-
+string
+-
+
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/collatz/collatz.hpp
+

@@ -1,0 +1,3 @@
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/collatz/CMakeFiles/rebuild_cache.dir
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/collatz/CMakeFiles/MyExample.dir
+/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/collatz/CMakeFiles/edit_cache.dir

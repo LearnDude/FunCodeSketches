@@ -1,6 +1,7 @@
 #pragma once
 
 #include <functional>
+#include <iostream>
 #include <random>
 #include <stdexcept>
 
@@ -9,26 +10,32 @@
 
 class InputFunction : public SimulatorFunction {
    public:
-    InputFunction(std::string _name, randomDist_t _distributionType, d2dFunction_t f)
+    InputFunction(std::string _name, randomDist_t _distributionType, std::function<double(double)> _f)
         : uniform_0_1_dist{0.0, 1.0},
           normal_0_1_dist{0.0, 1.0},
           generator{std::random_device{}()},
           distributionType{_distributionType},
-          SimulatorFunction::SimulatorFunction(_name,
-                                               [&f](const std::vector<double>& randnum) { return f(randnum[0]); }){};
+          f{[_f](const std::vector<double>& row) { return _f(row[0]); }},
+          SimulatorFunction::SimulatorFunction(_name, f){};
 
     void compute(int _samples) {
         samples = _samples;
         generate();
-        SimulatorFunction::compute(samples);
-    }
+        std::cout << "generated\n";
+        SimulatorFunction::compute();
+    };
+
+    void compute() { compute(samples); };
+
+    std::vector<double> randomData;
 
    private:
     std::uniform_real_distribution<double> uniform_0_1_dist;
     std::normal_distribution<double> normal_0_1_dist;
     std::minstd_rand0 generator;
-    std::vector<double> randomData;
+
     const randomDist_t distributionType;
+    const std::function<double(const std::vector<double>&)> f;
 
     constexpr double randDistribution() {
         switch(distributionType) {
@@ -48,10 +55,17 @@ class InputFunction : public SimulatorFunction {
     }
 
     void generate() {
-        randomData.reserve(samples);
+        randomData.clear();
+        randomData.resize(samples);
         for(int i = 0; i != samples; ++i) randomData[i] = randDistribution();
+        inputValues.clear();
+        inputValues.emplace_back(&randomData);
     };
 };
+
+//
+// Specializations
+//
 
 class DiscreteDist : public InputFunction {
    public:
@@ -64,9 +78,9 @@ class DiscreteDist : public InputFunction {
    private:
     std::vector<double> datapoints;
     std::vector<double> cumulativeProbs;
-    const int len;
-    d2dFunction_t generatorFunction = [_len = len, _datapoints = datapoints,
-                                       _cumulativeProbs = cumulativeProbs](double randn) {
+    const long unsigned int len;
+    std::function<double(double)> generatorFunction = [_len = len, _datapoints = datapoints,
+                                                       _cumulativeProbs = cumulativeProbs](double randn) {
         for(int i = 0; i < _len; i++) {
             if(randn < _cumulativeProbs[i]) return _datapoints[i];
         }
@@ -85,5 +99,5 @@ class NormalDist : public InputFunction {
    private:
     const double mean;
     const double stddev;
-    d2dFunction_t generatorFunction;
+    std::function<double(double)> generatorFunction;
 };

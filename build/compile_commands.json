@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/build",
+  "command": "/usr/bin/x86_64-linux-gnu-g++-7    -g   -o CMakeFiles/montecpp.dir/main.cpp.o -c /media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/main.cpp",
+  "file": "/media/bjorn/HitachiHD/Code/funprojects/FunCodeSketches/main.cpp"
+}
+]
