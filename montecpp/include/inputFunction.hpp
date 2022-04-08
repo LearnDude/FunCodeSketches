@@ -16,18 +16,19 @@ class InputFunction : public SimulatorFunction {
           generator{std::random_device{}()},
           distributionType{_distributionType},
           f{[_f](const std::vector<double>& row) { return _f(row[0]); }},
-          SimulatorFunction::SimulatorFunction(_name, f){};
+          SimulatorFunction::SimulatorFunction(_name, f) {
+        inputFunctions.emplace_back(this);
+    };
 
     void compute(int _samples) {
         samples = _samples;
         generate();
-        std::cout << "generated\n";
         SimulatorFunction::compute();
     };
 
     void compute() { compute(samples); };
 
-    std::vector<double> randomData;
+    // std::vector<double> randomData;
 
    private:
     std::uniform_real_distribution<double> uniform_0_1_dist;
@@ -55,11 +56,9 @@ class InputFunction : public SimulatorFunction {
     }
 
     void generate() {
-        randomData.clear();
-        randomData.resize(samples);
-        for(int i = 0; i != samples; ++i) randomData[i] = randDistribution();
-        inputValues.clear();
-        inputValues.emplace_back(&randomData);
+        data.clear();
+        data.resize(samples);
+        for(int i = 0; i != samples; ++i) data[i] = randDistribution();
     };
 };
 
