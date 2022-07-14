@@ -7,8 +7,6 @@
 % The hunter in West Africa did not have any guns, and he was not the one who fight his attacker with a garment.
 % The elephant was not chased away with a stick.
 
-:- use_module(library(clpfd)).
-
 hunter(professor).
 hunter(doctor).
 hunter(colonel).
@@ -46,41 +44,21 @@ adventure([H, A, T, L]) :-
 
 
 all_adventures([
-    [H1, A1, T1, L1],
-    [H2, A2, T2, L2],
-    [H3, A3, T3, L3],
-    [H4, A4, T4, L4],
-    [H5, A5, T5, L5]
+    [A1, T1, L1],
+    [A2, T2, L2],
+    [A3, T3, L3],
+    [A4, T4, L4],
+    [A5, T5, L5]
     ]) :-
-    hunter(H1),
-    hunter(H2),
-    hunter(H3),
-    hunter(H4),
-    hunter(H5),
-    animal(A1),
-    animal(A2),
-    animal(A3),
-    animal(A4),
-    animal(A5),
-    tool(T1),
-    tool(T2),
-    tool(T3),
-    tool(T4),
-    tool(T5),
-    location(L1),
-    location(L2),
-    location(L3),
-    location(L4),
-    location(L5),
-    no_reuse(H1, H2, H3, H4, H5),
-    no_reuse(A1, A2, A3, A4, A5),
-    no_reuse(T1, T2, T3, T4, T5),
-    no_reuse(L1, L2, L3, L4, L5),
-    adventure([H1, A1, T1, L1]),
-    adventure([H2, A2, T2, L2]),
-    adventure([H3, A3, T3, L3]),
-    adventure([H4, A4, T4, L4]),
-    adventure([H5, A5, T5, L5]).
+    adventure([professor, A1, T1, L1]),
+    adventure([doctor, A2, T2, L2]),
+    adventure([colonel, A3, T3, L3]),
+    adventure([fire_chief, A4, T4, L4]),
+    adventure([captain, A5, T5, L5]),
+    
+    all_different_atoms([A1, A2, A3, A4, A5]),
+    all_different_atoms([T1, T2, T3, T4, T5]),
+    all_different_atoms([L1, L2, L3, L4, L5]).
 
 
 invalid_list([
@@ -96,30 +74,4 @@ invalid(A) :- invalid_list(LL), member(A, LL).
 
 iff(A, B) :- A , B ; not(A) , not(B).
 
-no_reuse(H1, H2, H3, H4, H5) :-
-    H1 \= H2,
-    H1 \= H3,
-    H1 \= H4,
-    H1 \= H5,
-    H2 \= H3,
-    H2 \= H4,
-    H2 \= H5,
-    H3 \= H4,
-    H3 \= H5,
-    H4 \= H5.
-
-% X = [professor, bison, stone, north_africa] ;
-% % X = [professor, hippo, stone, west_africa] ;
-% % X = [professor, hippo, stone, east_africa] ;
-% % X = [professor, elephant, stone, west_africa] ;
-% % X = [professor, elephant, stone, east_africa] ;
-% % X = [doctor, bison, stick, north_africa] ;
-% % X = [doctor, bison, garment, north_africa] ;
-% X = [doctor, elephant, hands, central_africa] ;
-% X = [colonel, rhino, stick, west_africa] ;
-% % X = [colonel, rhino, stick, east_africa] ;
-% % X = [colonel, rhino, garment, east_africa] ;
-% % X = [fire_chief, hippo, stick, south_africa] ;
-% X = [fire_chief, hippo, garment, south_africa] ;
-% % X = [fire_chief, elephant, garment, south_africa] ;
-% X = [captain, puma, empty_gun, east_africa] ;
+all_different_atoms(X):- \+((select(M,X,Y), member(M,Y))).
