@@ -1,6 +1,4 @@
-make --dry-run --always-make --keep-going --print-directory
-make: Entering directory '/mnt/9E28E54828E5204F/Code/funprojects/FunCodeSketches'
-make: Leaving directory '/mnt/9E28E54828E5204F/Code/funprojects/FunCodeSketches'
- 
-make: *** No targets specified and no makefile found.  Stop.
+make.exe --dry-run --always-make --keep-going --print-directory
+'make.exe' is not recognized as an internal or external command,
+operable program or batch file.
 

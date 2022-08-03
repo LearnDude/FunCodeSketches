@@ -1,22 +1,8 @@
-ltr(a).
-ltr(b).
-ltr(c).
-num(one).
-num(two).
-num(three).
 
-invalid_list([[b,_],[a,one]]).
-invalid(E) :- 
-    invalid_list(LL),
-    member(E, LL).
+:- use_module(library(clpfd)).
 
-required_list([[_,two]]).
-required(E) :- 
-    required_list(LL),
-    member(E, LL).
+farm(C,D) :-
+    C + D #= 32,
+    D * 2 + C * 4 #= 74.
 
-combo([L,N]) :-
-    ltr(L),
-    num(N),
-    not(invalid([L,N])),
-    required([L,N]).
+score(C,D, Score) :- Score #= 10 * C - 11 * D. 
