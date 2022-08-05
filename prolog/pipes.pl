@@ -1,5 +1,6 @@
 :- use_module(library(clpfd)).
 
+% pipe( start, end, length, name )
 pipe(s, a, 5, "sa5").
 pipe(s, b, 3, "sb3").
 pipe(a, e, 2, "ae2").
@@ -13,3 +14,8 @@ buildPipe( From, To, Length, Pipes, Sols) :-
 
 buildPipe( From, From, Length, Pipes, Sols) :-
     Sols = [ Length, Pipes ].
+
+main :-
+    bagof([Solution], buildPipe(s, e, 0, [], Solution), Bag),
+    sort(Bag, Sorted),
+    write(Sorted).
